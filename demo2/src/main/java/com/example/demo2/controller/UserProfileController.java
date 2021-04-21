@@ -1,12 +1,12 @@
 package com.example.demo2.controller;
 
 import com.example.demo2.model.UserProfile;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,5 +26,29 @@ public class UserProfileController {
     @GetMapping("/user/{id}")
     public UserProfile getUserProfile(@PathVariable("id") String id) {
         return userMap.get(id);
+    }
+
+    @GetMapping("/user/all")
+    public List<UserProfile> getUserProfileList() {
+        return new ArrayList<UserProfile>(userMap.values());
+    }
+
+    @PutMapping("/user/{id}")
+    public void putUserProfile(@PathVariable("id") String id, @RequestParam("name") String name, @RequestParam("phone") String phone, @RequestParam("address") String address) {
+        UserProfile userProfile = new UserProfile(id, name, phone, address);
+        userMap.put(id, userProfile);
+    }
+
+    @PostMapping("/user/{id}")
+    public void postUserProfile(@PathVariable("id") String id, @RequestParam("name") String name, @RequestParam("phone") String phone, @RequestParam("address") String address) {
+        UserProfile userProfile = userMap.get(id);
+        userProfile.setName(name);
+        userProfile.setPhone(phone);
+        userProfile.setAddress(address);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public void deleteUserProfile(@PathVariable("id") String id) {
+        userMap.remove(id);
     }
 }
