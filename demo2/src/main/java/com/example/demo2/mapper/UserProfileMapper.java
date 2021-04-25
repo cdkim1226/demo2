@@ -14,7 +14,7 @@ public interface UserProfileMapper {
     @Select("select * from Userprofile")
     List<UserProfile> getUserProfileList();
 
-    @Insert("insert into Userprofile values(#{id}, #{name}, #{phone}, #{address}")
+    @Insert("insert into userprofile values(#{id}, #{name}, #{phone}, #{address})")
     int insertUserProfile(@Param("id") String id, @Param("name") String name, @Param("phone") String phone, @Param("address") String address);
 
     @Update("update userprofile set name=#{name}, phone=#{phone}, address=#{address} where id=#{id}")
