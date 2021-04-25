@@ -36,4 +36,8 @@ public class UserProfileController {
         mapper.updateUserProfile(id, name, phone, address);
     }
 
+    @DeleteMapping("/user/{id}")
+    public void deleteUserProfile(@PathVariable("id") String id) {
+        mapper.deleteUserProfile(id);
+    }
 }
